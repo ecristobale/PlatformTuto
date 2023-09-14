@@ -23,7 +23,7 @@ public class Player extends Entity {
     private boolean moving = Boolean.FALSE;
     private boolean attacking = Boolean.FALSE;
     private boolean jump;
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 1.0f * Game.SCALE;
     private int[][] levelData;
     private float xDrawOffset = 21 * Game.SCALE; //padding of char width
     private float yDrawOffset = 4 * Game.SCALE; //padding of char height
@@ -38,7 +38,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initialiseHitbox(x, y, 20*Game.SCALE, 27*Game.SCALE); //hitbox: 20x28
+        initialiseHitbox(x, y, (int)(20*Game.SCALE), (int)(27*Game.SCALE)); //hitbox: 20x27
     }
 
     public void update() {
@@ -171,12 +171,12 @@ public class Player extends Entity {
 
     private void loadAnimations() {
 
-        BufferedImage image = LoadSave.getSpriteAtlas(LoadSave.PLAYER_ATLAS);
+        BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.PLAYER_ATLAS);
         animations = new BufferedImage[9][6];
 
         for (int j = 0; j < animations.length; j++) {
             for (int i = 0; i < animations[j].length; i++) {
-                animations[j][i] = image.getSubimage(i*64, j*40, 64, 40);
+                animations[j][i] = img.getSubimage(i*64, j*40, 64, 40);
             }
         }
     }

@@ -23,12 +23,12 @@ public class LevelHandler {
 
     private void importOutsideSprites() {
         // Sprite level atlas: 48 = 4 HEIGHT * 12 WIDTH
-        BufferedImage image = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
+        BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
         levelSprite = new BufferedImage[48];
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 12; i++) {
                 int index = j * 12 + i;
-                levelSprite[index] = image.getSubimage(i * 32, j * 32, 32, 32);
+                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
             }
         }
 
