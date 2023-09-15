@@ -7,11 +7,14 @@ import java.awt.event.MouseEvent;
 import entities.Player;
 import levels.LevelHandler;
 import main.Game;
+import ui.PauseOverlay;
 
 public class Playing extends State implements StateMethods {
 
     private Player player;
     private LevelHandler levelHandler;
+    private PauseOverlay pauseOverlay;
+    private boolean paused = Boolean.TRUE;
 
     public Playing(Game game) {
         super(game);
@@ -22,18 +25,22 @@ public class Playing extends State implements StateMethods {
         levelHandler = new LevelHandler(game);
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
+        pauseOverlay = new PauseOverlay();
     }
 
     @Override
     public void update() {
         levelHandler.update();
         player.update();
+        pauseOverlay.update();
     }
 
     @Override
     public void draw(Graphics g) {
         levelHandler.draw(g);
         player.render(g);
+
+        pauseOverlay.draw(g);
     }
 
     @Override
@@ -45,19 +52,21 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
+        if (paused)
+            pauseOverlay.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if (paused)
+            pauseOverlay.mouseReleased(e);
 
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if (paused)
+            pauseOverlay.mouseMoved(e);
 
     }
 
