@@ -13,7 +13,7 @@ public class Player extends Entity {
 
     private BufferedImage[][] animations;
     private int animationTick = 25;
-    private int animationIndex = 25;
+    private int animationIndex = 0;
     private int animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean left;
@@ -49,7 +49,7 @@ public class Player extends Entity {
 
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
-        //drawHitbox(g);
+//      drawHitbox(g);
     }
 
     private void updateAnimationTick() {

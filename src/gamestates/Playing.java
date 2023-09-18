@@ -14,7 +14,7 @@ public class Playing extends State implements StateMethods {
     private Player player;
     private LevelHandler levelHandler;
     private PauseOverlay pauseOverlay;
-    private boolean paused = Boolean.TRUE;
+    private boolean paused = Boolean.FALSE;
 
     public Playing(Game game) {
         super(game);
@@ -25,14 +25,16 @@ public class Playing extends State implements StateMethods {
         levelHandler = new LevelHandler(game);
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
-        pauseOverlay = new PauseOverlay();
+        pauseOverlay = new PauseOverlay(this);
     }
 
     @Override
     public void update() {
-        levelHandler.update();
-        player.update();
-        pauseOverlay.update();
+        if (!paused) {
+            levelHandler.update();
+            player.update();
+        } else
+            pauseOverlay.update();
     }
 
     @Override
@@ -40,7 +42,8 @@ public class Playing extends State implements StateMethods {
         levelHandler.draw(g);
         player.render(g);
 
-        pauseOverlay.draw(g);
+        if (paused)
+            pauseOverlay.draw(g);
     }
 
     @Override
@@ -70,6 +73,16 @@ public class Playing extends State implements StateMethods {
 
     }
 
+    public void mouseDragged(MouseEvent e) {
+        if(paused)
+            pauseOverlay.mouseDragged(e);
+
+    }
+
+    public void unpauseGame() {
+        paused = Boolean.FALSE;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
@@ -82,8 +95,8 @@ public class Playing extends State implements StateMethods {
         case KeyEvent.VK_SPACE:
             player.setJump(Boolean.TRUE);
             break;
-        case KeyEvent.VK_BACK_SPACE:
-            GameState.state = GameState.MENU;
+        case KeyEvent.VK_ESCAPE:
+            paused = !paused;
             break;
         }
     }
@@ -111,5 +124,4 @@ public class Playing extends State implements StateMethods {
         player.resetDirBooleans();
 
     }
-
 }
