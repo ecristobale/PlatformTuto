@@ -12,8 +12,8 @@ import utils.LoadSave;
 public class Player extends Entity {
 
     private BufferedImage[][] animations;
-    private int animationTick = 25;
-    private int animationIndex = 0;
+    private int animationTick;
+    private int animationIndex;
     private int animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean left;
@@ -38,7 +38,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initialiseHitbox(x, y, (int)(20*Game.SCALE), (int)(27*Game.SCALE)); //hitbox: 20x27
+        initHitbox(x, y, (int)(20*Game.SCALE), (int)(27*Game.SCALE)); //hitbox: 20x27
     }
 
     public void update() {
@@ -49,7 +49,7 @@ public class Player extends Entity {
 
     public void render(Graphics g, int xLvlOffset) {
         g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset) - xLvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
-//      drawHitbox(g);
+//        drawHitbox(g, xLvlOffset);
     }
 
     private void updateAnimationTick() {

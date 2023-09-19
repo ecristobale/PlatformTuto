@@ -35,7 +35,8 @@ public class HelperMethods {
             int tileYPositionPixel = currentTile * Game.TILES_SIZE;
             int yOffset = (int) (Game.TILES_SIZE - hitbox.height);
             return tileYPositionPixel + yOffset - 1;
-        } else { // Jumping
+        } else {
+            // Jumping
             return currentTile * Game.TILES_SIZE;
         }
     }
@@ -45,6 +46,7 @@ public class HelperMethods {
         if (!isSolid(hitbox.x, hitbox.y + hitbox.height + 1, levelData))
             if (!isSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, levelData))
                 return Boolean.FALSE;
+
         return Boolean.TRUE;
     }
 
@@ -66,5 +68,9 @@ public class HelperMethods {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
+    }
+
+    public static boolean isFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelData) {
+        return isSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, levelData);
     }
 }
