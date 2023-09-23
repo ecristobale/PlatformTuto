@@ -10,7 +10,7 @@ public class Constants {
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int ATTACK = 2;
-        public static final int HIT = 3;
+        public static final int HITTED = 3;
         public static final int DEAD = 4;
 
         public static final int CRABBY_WIDTH_DEFAULT = 72;
@@ -32,7 +32,7 @@ public class Constants {
                         return 6;
                     case ATTACK:
                         return 7;
-                    case HIT:
+                    case HITTED:
                         return 4;
                     case DEAD:
                         return 5;
@@ -40,6 +40,24 @@ public class Constants {
             }
 
             return 0;
+        }
+
+        public static int getMaxHealth(int enemyType) {
+            switch(enemyType) {
+            case CRABBY:
+                return 10;
+            default:
+                return 1;
+            }
+        }
+
+        public static int getEnemyDmg(int enemyType) {
+            switch(enemyType) {
+            case CRABBY:
+                return 15;
+            default:
+                return 0;
+            }
         }
     }
 
@@ -95,15 +113,15 @@ public class Constants {
         public static final int RUNNING = 1;
         public static final int JUMPING = 2;
         public static final int FALLING = 3;
-        public static final int GROUND = 4;
+        public static final int ATTACK = 4;
         public static final int GETTING_HIT = 5;
-        public static final int ATTACK_1 = 6;
-        public static final int ATTACK_JUMP_1 = 7;
-        public static final int ATTACK_JUMP_2 = 8;
+        public static final int DEAD = 6;
 
         public static int getSprintAmount(int playerAction) {
             switch (playerAction) {
 
+            case DEAD:
+                return 8;
             case IDLE:
                 return 5;
             case RUNNING:
@@ -111,12 +129,8 @@ public class Constants {
             case GETTING_HIT:
                 return 4;
             case JUMPING:
-            case ATTACK_1:
-            case ATTACK_JUMP_1:
-            case ATTACK_JUMP_2:
+            case ATTACK:
                 return 3;
-            case GROUND:
-                return 2;
             case FALLING:
             default:
                 return 1;
