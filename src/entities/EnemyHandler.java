@@ -49,7 +49,7 @@ public class EnemyHandler {
     private void drawCrabs(Graphics g, int xLvlOffset) {
         for (Crabby c : crabbies)
             if (c.isActive()) {
-                g.drawImage(crabbyArray[c.getEnemyState()][c.getAniIndex()],
+                g.drawImage(crabbyArray[c.getState()][c.getAnimationIndex()],
                         (int)c.hitbox.x - xLvlOffset - CRABBY_DRAWOFFSET_X + c.flipX(),
                         (int) c.hitbox.y - CRABBY_DRAWOFFSET_Y,
                         CRABBY_WIDTH * c.flipW(),
