@@ -13,6 +13,7 @@ import static utils.HelperMethods.isEntityOnFloor;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -78,6 +79,13 @@ public class Player extends Entity {
         loadAnimations();
         initHitbox(x, y, (int)(20*Game.SCALE), (int)(27*Game.SCALE)); //hitbox: 20x27
         initAttackBox();
+    }
+
+    public void setSpawn(Point spawn) {
+        x = spawn.x;
+        y = spawn.y;
+        hitbox.x = x;
+        hitbox.y = y;
     }
 
     private void initAttackBox() {
