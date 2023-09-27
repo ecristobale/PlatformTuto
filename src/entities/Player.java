@@ -5,7 +5,7 @@ import static utils.Constants.PlayerConstants.FALLING;
 import static utils.Constants.PlayerConstants.IDLE;
 import static utils.Constants.PlayerConstants.JUMPING;
 import static utils.Constants.PlayerConstants.RUNNING;
-import static utils.Constants.PlayerConstants.getSprintAmount;
+import static utils.Constants.PlayerConstants.getSpriteAmount;
 import static utils.HelperMethods.canMoveHere;
 import static utils.HelperMethods.getEntityXPositionNextToWall;
 import static utils.HelperMethods.getEntityYPositionUnderRoofOrAboveFloor;
@@ -95,10 +95,17 @@ public class Player extends Entity {
         updateAttackBox();
 
         updatePosition();
+        if (moving)
+            checkPotionTouched();
         if (attacking)
             checkAttack();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkPotionTouched() {
+        playing.checkPotionTouched(hitbox);
+
     }
 
     private void checkAttack() {
@@ -106,6 +113,7 @@ public class Player extends Entity {
             return;
         attackCheck = Boolean.TRUE;
         playing.checkEnemyHit(attackBox);
+        playing.checkObjectHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -145,7 +153,7 @@ public class Player extends Entity {
         if (animationTick >= ANIMATION_SPEED) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= getSprintAmount(state)) {
+            if (animationIndex >= getSpriteAmount(state)) {
                 animationIndex = 0;
                 attacking = Boolean.FALSE;
                 attackCheck = Boolean.FALSE;
@@ -275,6 +283,11 @@ public class Player extends Entity {
         } else if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
         }
+    }
+
+    public void changePower(int value) {
+        System.out.println("added power");
+
     }
 
     private void loadAnimations() {

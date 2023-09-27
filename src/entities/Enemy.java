@@ -114,7 +114,7 @@ public abstract class Enemy extends Entity {
         if (animationTick >= ANIMATION_SPEED) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= getSprintAmount(enemyType, state)) {
+            if (animationIndex >= getSpriteAmount(enemyType, state)) {
                 animationIndex = 0;
 
                 switch(state) {
