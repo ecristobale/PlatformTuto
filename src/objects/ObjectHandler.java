@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import entities.Player;
 import gamestates.Playing;
 import levels.Level;
 import utils.LoadSave;
@@ -16,12 +17,20 @@ public class ObjectHandler {
     private Playing playing;
     private BufferedImage[][] potionImgs;
     private BufferedImage[][] containerImgs;
+    private BufferedImage spikeImg;
     private ArrayList<Potion> potions;
-    private ArrayList<GameContainer> containers; //19:18
+    private ArrayList<GameContainer> containers;
+    private ArrayList<Spike> spikes;
 
     public ObjectHandler(Playing playing) {
         this.playing = playing;
         loadImgs();
+    }
+
+    public void checkSpikesTouched(Player p) {
+        for(Spike s : spikes)
+            if (s.getHitbox().intersects(p.getHitbox()))
+                p.kill();
     }
 
     public void checkObjectTouched(Rectangle2D.Float hitbox) {
@@ -59,6 +68,7 @@ public class ObjectHandler {
     public void loadObjects(Level newLevel) {
         potions = new ArrayList<>(newLevel.getPotionList());
         containers = new ArrayList<>(newLevel.getContainerList());
+        spikes = new ArrayList<>(newLevel.getSpikeList());
 
     }
 
@@ -76,6 +86,8 @@ public class ObjectHandler {
         for(int j = 0; j < containerImgs.length; j++)
             for(int i = 0; i < containerImgs[j].length; i++)
                 containerImgs[j][i] = containerSprite.getSubimage(40 * i, 30 * j, 40, 30);
+
+        spikeImg = LoadSave.getSpriteAtlas(LoadSave.TRAP_ATLAS);
     }
 
     public void update() {
@@ -91,6 +103,13 @@ public class ObjectHandler {
     public void draw(Graphics g, int xLvlOffset) {
         drawPotions(g, xLvlOffset);
         drawContainers(g, xLvlOffset);
+        drawTraps(g, xLvlOffset);
+    }
+
+    private void drawTraps(Graphics g, int xLvlOffset) {
+        for(Spike s : spikes)
+            g.drawImage(spikeImg, (int) (s.getHitbox().x - xLvlOffset), (int) (s.getHitbox().y - s.getyDrawOffset()), SPIKE_WIDTH, SPIKE_HEIGHT, null);
+
     }
 
     private void drawContainers(Graphics g, int xLvlOffset) {

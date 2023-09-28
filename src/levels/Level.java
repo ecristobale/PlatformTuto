@@ -12,6 +12,7 @@ import entities.Crabby;
 import main.Game;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Spike;
 import utils.HelperMethods;
 
 public class Level {
@@ -21,6 +22,7 @@ public class Level {
     private ArrayList<Crabby> crabbies;
     private ArrayList<Potion> potionList;
     private ArrayList<GameContainer> containerList;
+    private ArrayList<Spike> spikeList;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
@@ -32,18 +34,21 @@ public class Level {
         createEnemies();
         createPotions();
         createContainers();
+        createSpikes();
         calcLvlOffsets();
         calcPlayerSpawn();
     }
 
+    private void createSpikes() {
+        spikeList = HelperMethods.getSpikes(img);
+    }
+
     private void createContainers() {
         containerList = HelperMethods.getContainers(img);
-
     }
 
     private void createPotions() {
         potionList = HelperMethods.getPotions(img);
-
     }
 
     private void calcPlayerSpawn() {
@@ -92,4 +97,7 @@ public class Level {
         return containerList;
     }
 
+    public ArrayList<Spike> getSpikeList() {
+        return spikeList;
+    }
 }

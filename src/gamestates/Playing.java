@@ -174,6 +174,10 @@ public class Playing extends State implements StateMethods {
         objectHandler.checkObjectTouched(hitbox);
     }
 
+    public void checkSpikesTouched(Player p) {
+        objectHandler.checkSpikesTouched(p);
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (!gameOver)
