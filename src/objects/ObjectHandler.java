@@ -119,14 +119,15 @@ public class ObjectHandler {
 
     private void updateProjectiles(int[][] lvlData, Player player) {
         for(Projectile p : projectiles) {
-            if (p.isActive())
+            if (p.isActive()) {
                 p.updatePos();
 
-            if (p.getHibox().intersects(player.getHitbox())) {
-                player.changeHealth(-25);
-                p.setActive(Boolean.FALSE);
-            } else if (isProjectileHittingLevel(p, lvlData))
-                p.setActive(Boolean.FALSE);
+                if (p.getHibox().intersects(player.getHitbox())) {
+                    player.changeHealth(-25);
+                    p.setActive(Boolean.FALSE);
+                } else if (isProjectileHittingLevel(p, lvlData))
+                    p.setActive(Boolean.FALSE);
+            }
         }
     }
 
