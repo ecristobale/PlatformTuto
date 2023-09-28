@@ -5,6 +5,7 @@ import static utils.Constants.PlayerConstants.FALLING;
 import static utils.Constants.PlayerConstants.IDLE;
 import static utils.Constants.PlayerConstants.JUMPING;
 import static utils.Constants.PlayerConstants.RUNNING;
+import static utils.Constants.PlayerConstants.DEAD;
 import static utils.Constants.PlayerConstants.getSpriteAmount;
 import static utils.HelperMethods.canMoveHere;
 import static utils.HelperMethods.getEntityXPositionNextToWall;
@@ -90,7 +91,17 @@ public class Player extends Entity {
         updateHealthBar();
 
         if (currentHealth <= 0) {
-            playing.setGameOver(Boolean.TRUE);
+
+            if (state != DEAD) {
+                state = DEAD;
+                animationTick = 0;
+                animationIndex = 0;
+                playing.setPlayerDying(Boolean.TRUE);
+            } else if (animationIndex == getSpriteAmount(DEAD) - 1 && animationTick >= ANIMATION_SPEED - 1) {
+                playing.setGameOver(Boolean.TRUE);
+            } else
+                updateAnimationTick();
+
             return;
         }
 

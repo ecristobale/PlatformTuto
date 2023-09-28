@@ -45,6 +45,7 @@ public class Playing extends State implements StateMethods {
 
     private Boolean gameOver = Boolean.FALSE;
     private Boolean lvlCompleted = Boolean.FALSE;
+    private Boolean playerDying = Boolean.FALSE;
 
     public Playing(Game game) {
         super(game);
@@ -94,7 +95,11 @@ public class Playing extends State implements StateMethods {
             pauseOverlay.update();
         } else if (lvlCompleted) {
             levelCompletedOverlay.update();
-        } else if (!gameOver){
+        } else if (gameOver) {
+            gameOverOverlay.update();
+        } else if (playerDying){
+            player.update();
+        } else {
             levelHandler.update();
             objectHandler.update(levelHandler.getCurrentLevel().getLevelData(), player);
             player.update();
@@ -153,6 +158,7 @@ public class Playing extends State implements StateMethods {
         gameOver = Boolean.FALSE;
         paused = Boolean.FALSE;
         lvlCompleted = Boolean.FALSE;
+        playerDying = Boolean.FALSE;
         player.resetAll();
         enemyHandler.resetAllEnemies();
         objectHandler.resetAllObjects();
@@ -193,7 +199,8 @@ public class Playing extends State implements StateMethods {
                 pauseOverlay.mousePressed(e);
             else if (lvlCompleted)
                 levelCompletedOverlay.mousePressed(e);
-        }
+        } else
+            gameOverOverlay.mousePressed(e);
     }
 
     @Override
@@ -203,7 +210,8 @@ public class Playing extends State implements StateMethods {
                 pauseOverlay.mouseReleased(e);
             else if (lvlCompleted)
                 levelCompletedOverlay.mouseReleased(e);
-        }
+        } else
+            gameOverOverlay.mouseReleased(e);
     }
 
     @Override
@@ -213,7 +221,8 @@ public class Playing extends State implements StateMethods {
                 pauseOverlay.mouseMoved(e);
             else if (lvlCompleted)
                 levelCompletedOverlay.mouseMoved(e);
-        }
+        } else
+            gameOverOverlay.mouseMoved(e);
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -291,5 +300,10 @@ public class Playing extends State implements StateMethods {
 
     public LevelHandler getLevelHandler() {
         return levelHandler;
+    }
+
+    public void setPlayerDying(Boolean playerDying) {
+        this.playerDying = playerDying;
+
     }
 }
