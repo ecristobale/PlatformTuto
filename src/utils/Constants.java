@@ -12,7 +12,7 @@ public class Constants {
         public static final int CANNON_BALL_HEIGHT_DEFAULT = 15;
         public static final int CANNON_BALL_WIDTH = (int) (CANNON_BALL_WIDTH_DEFAULT * Game.SCALE);
         public static final int CANNON_BALL_HEIGHT = (int) (CANNON_BALL_HEIGHT_DEFAULT * Game.SCALE);
-        public static final float SPEED = 0.5f * Game.SCALE;
+        public static final float SPEED = 0.75f * Game.SCALE;
     }
 
     public static class ObjectConstants {

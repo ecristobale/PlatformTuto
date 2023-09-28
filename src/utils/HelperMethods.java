@@ -14,6 +14,7 @@ import main.Game;
 import objects.Cannon;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Projectile;
 import objects.Spike;
 
 public class HelperMethods {
@@ -75,6 +76,10 @@ public class HelperMethods {
         float yIndex = y / Game.TILES_SIZE;
 
         return isTileSolid((int)xIndex, (int)yIndex, levelData);
+    }
+
+    public static boolean isProjectileHittingLevel(Projectile p, int [][] levelData) {
+        return isSolid(p.getHibox().x + p.getHibox().width / 2, p.getHibox().y + p.getHibox().height / 2, levelData);
     }
 
     private static boolean isTileSolid(int xTile, int yTile, int[][] levelData) {
