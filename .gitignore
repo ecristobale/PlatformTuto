@@ -16,6 +16,8 @@ hs_err_pid*
 bin/
 tmp/
 .metadata
+.classpath
+.project
 *.tmp
 *.bak
 *.swp
