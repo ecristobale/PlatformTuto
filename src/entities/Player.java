@@ -66,7 +66,7 @@ public class Player extends Entity {
         this.state = IDLE;
         this.maxHealth = 100;
         this.currentHealth = maxHealth;
-        this.walkSpeed = Game.SCALE * 1.0f;
+        this.walkSpeed = 1.0f * Game.SCALE;
         loadAnimations();
         initHitbox(20, 27); //hitbox: 20x27
         initAttackBox();
@@ -118,11 +118,11 @@ public class Player extends Entity {
 
     private void updateAttackBox() {
         if (right) {
-            attackBox.x = hitbox.x + hitbox.width + (int) (Game.SCALE * 10);
+            attackBox.x = hitbox.x + hitbox.width + (int) (10 * Game.SCALE);
         } else if (left) {
-            attackBox.x = hitbox.x - hitbox.width - (int) (Game.SCALE * 10);
+            attackBox.x = hitbox.x - hitbox.width - (int) (10 * Game.SCALE);
         }
-        attackBox.y = hitbox.y + (int) (Game.SCALE * 10);
+        attackBox.y = hitbox.y + (int) (10 * Game.SCALE);
     }
 
     private void updateHealthBar() {
