@@ -38,7 +38,8 @@ public class GameObject {
                 if (objectType == BARREL || objectType == BOX) {
                     doAnimation = Boolean.FALSE;
                     active = Boolean.FALSE;
-                }
+                } else if (objectType == CANNON_LEFT || objectType == CANNON_RIGHT)
+                    doAnimation = Boolean.FALSE;
             }
         }
     }
@@ -48,7 +49,7 @@ public class GameObject {
         aniTick = 0;
         active = Boolean.TRUE;
 
-        if (objectType == BARREL || objectType == BOX)
+        if (objectType == BARREL || objectType == BOX || objectType == CANNON_LEFT || objectType == CANNON_RIGHT)
             doAnimation = Boolean.FALSE;
         else
             doAnimation = Boolean.TRUE;
