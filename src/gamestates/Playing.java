@@ -284,4 +284,8 @@ public class Playing extends State implements StateMethods {
     public ObjectHandler getObjectHandler() {
         return objectHandler;
     }
+
+    public LevelHandler getLevelHandler() {
+        return levelHandler;
+    }
 }

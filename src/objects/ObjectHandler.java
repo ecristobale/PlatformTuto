@@ -43,7 +43,7 @@ public class ObjectHandler {
 
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         for (GameContainer gc : containers)
-            if (gc.isActive())
+            if (gc.isActive() && !gc.doAnimation)
                 if (gc.getHitbox().intersects(attackBox)) {
                     gc.setAnimation(Boolean.TRUE);
                     int type = 0;
@@ -57,8 +57,8 @@ public class ObjectHandler {
     }
 
     public void loadObjects(Level newLevel) {
-        potions = newLevel.getPotionList();
-        containers = newLevel.getContainerList();
+        potions = new ArrayList<>(newLevel.getPotionList());
+        containers = new ArrayList<>(newLevel.getContainerList());
 
     }
 
@@ -127,6 +127,8 @@ public class ObjectHandler {
     }
 
     public void resetAllObjects() {
+        loadObjects(playing.getLevelHandler().getCurrentLevel()); // prevent lists to becoming higher at restart lvl
+
         for(Potion p : potions)
             p.reset();
 
