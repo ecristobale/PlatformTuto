@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import gamestates.GameState;
 import gamestates.Menu;
 import gamestates.Playing;
+import ui.AudioOptions;
 import utils.LoadSave;
 
 public class Game implements Runnable {
@@ -17,9 +18,10 @@ public class Game implements Runnable {
 
     private Playing playing;
     private Menu menu;
+    private AudioOptions audioOptions;
 
     public final static int TILES_DEFAULT_SIZE = 32;
-    public final static float SCALE = 2.0f;
+    public final static float SCALE = 1.8f;
     public final static int TILES_IN_WIDTH = 26;
     public final static int TILES_IN_HEIGHT = 14;
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
@@ -40,6 +42,7 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
+        audioOptions = new AudioOptions();
         menu = new Menu(this);
         playing = new Playing(this);
     }
@@ -132,5 +135,9 @@ public class Game implements Runnable {
 
     public Playing getPlaying() {
         return playing;
+    }
+
+    public AudioOptions getAudioOptions() {
+        return audioOptions;
     }
 }
