@@ -6,6 +6,7 @@ import gamestates.GameState;
 import gamestates.Menu;
 import gamestates.Playing;
 import ui.AudioOptions;
+import ui.GameOptions;
 import utils.LoadSave;
 
 public class Game implements Runnable {
@@ -18,10 +19,11 @@ public class Game implements Runnable {
 
     private Playing playing;
     private Menu menu;
+    private GameOptions gameOptions;
     private AudioOptions audioOptions;
 
     public final static int TILES_DEFAULT_SIZE = 32;
-    public final static float SCALE = 1.8f;
+    public final static float SCALE = 2.0f;
     public final static int TILES_IN_WIDTH = 26;
     public final static int TILES_IN_HEIGHT = 14;
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
@@ -45,6 +47,7 @@ public class Game implements Runnable {
         audioOptions = new AudioOptions();
         menu = new Menu(this);
         playing = new Playing(this);
+        gameOptions = new GameOptions(this);
     }
 
     private void startGameLoop() {
@@ -61,6 +64,8 @@ public class Game implements Runnable {
             playing.update();
             break;
         case OPTIONS:
+            gameOptions.update();
+            break;
         case QUIT:
         default:
             System.exit(0);
@@ -75,6 +80,9 @@ public class Game implements Runnable {
             break;
         case PLAYING:
             playing.draw(g);
+            break;
+        case OPTIONS:
+            gameOptions.draw(g);
             break;
         default:
             break;
@@ -135,6 +143,10 @@ public class Game implements Runnable {
 
     public Playing getPlaying() {
         return playing;
+    }
+
+    public GameOptions getGameOptions() {
+        return gameOptions;
     }
 
     public AudioOptions getAudioOptions() {
