@@ -81,4 +81,8 @@ public class LevelHandler {
     public int getAmountOfLevels() {
         return levels.size();
     }
+
+    public int getLvlIndex() {
+        return lvlIndex;
+    }
 }

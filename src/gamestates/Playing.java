@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import audio.AudioPlayer;
 import entities.EnemyHandler;
 import entities.Player;
 import levels.LevelHandler;
@@ -234,6 +235,8 @@ public class Playing extends State implements StateMethods {
 
     public void setLvlCompleted(Boolean lvlCompleted) {
         this.lvlCompleted = lvlCompleted;
+        if (this.lvlCompleted)
+            game.getAudioPlayer().lvlCompleted();
     }
 
     public void setMaxLvlOffset(int lvlOffset) {
