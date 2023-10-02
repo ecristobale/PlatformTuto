@@ -97,7 +97,7 @@ public class Player extends Entity {
 
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
-
+        resetAttackBox();
     }
 
     public void update() {
@@ -454,9 +454,20 @@ public class Player extends Entity {
 
         hitbox.x = x;
         hitbox.y = y;
+        resetAttackBox();
 
         if (!isEntityOnFloor(hitbox, levelData))
             inAir = true;
+    }
+
+    private void resetAttackBox() {
+
+        if (flipW == 1) {
+            attackBox.x = hitbox.x + hitbox.width + (int) (10 * Game.SCALE);
+        } else {
+            attackBox.x = hitbox.x - hitbox.width - (int) (10 * Game.SCALE);
+        }
+
     }
 
     public int getTileY() {
