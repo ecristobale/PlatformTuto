@@ -62,10 +62,11 @@ public class EnemyHandler {
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for(Crabby c : crabbies)
             if (c.isActive()){
-                if (attackBox.intersects(c.getHitbox())) {
-                    c.hurt(10);
-                    return;
-                }
+                if (c.getCurrentHealth() > 0)
+                    if (attackBox.intersects(c.getHitbox())) {
+                        c.hurt(10);
+                        return;
+                    }
             }
     }
 
