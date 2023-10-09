@@ -6,6 +6,11 @@ import java.awt.geom.Rectangle2D;
 
 import main.Game;
 
+import static utils.Constants.Directions.DOWN;
+import static utils.Constants.Directions.LEFT;
+import static utils.Constants.Directions.UP;
+import static utils.HelperMethods.canMoveHere;
+
 public abstract class Entity {
 
     protected float x;
@@ -22,6 +27,10 @@ public abstract class Entity {
     protected Rectangle2D.Float attackBox;
     protected float walkSpeed = 1.0f * Game.SCALE;
 
+    protected int pushBackDir;
+    protected float pushDrawOffset;
+    protected int pushBackOffsetDir = UP;
+
 
     protected Rectangle2D.Float hitbox;
 
@@ -32,13 +41,39 @@ public abstract class Entity {
         this.height = height;
     }
 
+    protected void updatePushBackDrawOffset() {
+        float speed = 0.95f;
+        float limit = -30f;
+
+        if (pushBackOffsetDir == UP) {
+            pushDrawOffset -= speed;
+            if (pushDrawOffset <= limit)
+                pushBackOffsetDir = DOWN;
+        } else {
+            pushDrawOffset += speed;
+            if (pushDrawOffset >= 0)
+                pushDrawOffset = 0;
+        }
+    }
+
+    protected void pushBack(int pushBackDir, int[][] lvlData, float speedMulti) {
+        float xSpeed = 0;
+        if (pushBackDir == LEFT)
+            xSpeed = -walkSpeed;
+        else
+            xSpeed = walkSpeed;
+
+        if (canMoveHere(hitbox.x + xSpeed * speedMulti, hitbox.y, hitbox.width, hitbox.height, lvlData))
+            hitbox.x += xSpeed * speedMulti;
+    }
+
     public void drawAttackBox(Graphics g, int xLvlOffset) {
         g.setColor(Color.RED);
         g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
 
     protected void drawHitbox(Graphics g, int xLvlOffset) {
-        // debugging hitbox
+        // for debugging purpose
         g.setColor(Color.RED);
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
@@ -59,7 +94,9 @@ public abstract class Entity {
         return animationIndex;
     }
 
-    public int getCurrentHealth() {
-        return currentHealth;
+    protected void newState(int state) {
+        this.state = state;
+        animationTick = 0;
+        animationIndex = 0;
     }
 }

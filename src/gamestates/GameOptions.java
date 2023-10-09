@@ -1,4 +1,4 @@
-package ui;
+package gamestates;
 
 import static utils.Constants.UI.UrmButtons.URM_SIZE;
 
@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import gamestates.GameState;
-import gamestates.State;
-import gamestates.StateMethods;
 import main.Game;
+import ui.AudioOptions;
+import ui.PauseButton;
+import ui.UrmButton;
 import utils.LoadSave;
 
 public class GameOptions extends State implements StateMethods {
@@ -43,7 +43,7 @@ public class GameOptions extends State implements StateMethods {
 
         bgW = (int) (optionsBackgroundImg.getWidth() * Game.SCALE);
         bgH = (int) (optionsBackgroundImg.getHeight() * Game.SCALE);
-        bgX = Game.GAME_WIDTH/2 - bgW/2;
+        bgX = Game.GAME_WIDTH / 2 - bgW / 2;
         bgY = (int) (33 * Game.SCALE);
     }
 
@@ -75,18 +75,12 @@ public class GameOptions extends State implements StateMethods {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, menuB)) {
             if (menuB.isMousePressed())
                 GameState.state = GameState.MENU;
        } else
             audioOptions.mouseReleased(e);
-
         menuB.resetBools();
     }
 
@@ -107,9 +101,10 @@ public class GameOptions extends State implements StateMethods {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {}
 
-    }
+    @Override
+    public void mouseClicked(MouseEvent e) {}
 
     private boolean isIn(MouseEvent e, PauseButton button) {
         return button.getBounds().contains(e.getX(), e.getY());

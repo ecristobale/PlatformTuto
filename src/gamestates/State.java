@@ -22,6 +22,7 @@ public class State {
         return game;
     }
 
+    @SuppressWarnings("incomplete-switch")
     public void setGameState(GameState state) {
         switch(state) {
         case MENU -> game.getAudioPlayer().playSong(AudioPlayer.MENU_1);

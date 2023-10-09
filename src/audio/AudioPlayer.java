@@ -29,7 +29,7 @@ public class AudioPlayer {
     private Clip[] songs;
     private Clip[] effects;
     private int currentSongId;
-    private float volume = 1f;
+    private float volume = 0.5f;
     private boolean songMute;
     private boolean effectMute;
     private Random random = new Random();
@@ -65,7 +65,6 @@ public class AudioPlayer {
             audio = AudioSystem.getAudioInputStream(url);
             Clip c = AudioSystem.getClip();
             c.open(audio);
-
             return c;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
@@ -103,7 +102,8 @@ public class AudioPlayer {
     }
 
     public void playEffect(int effect) {
-        effects[effect].setMicrosecondPosition(0);
+        if (effects[effect].getMicrosecondPosition() > 0)
+            effects[effect].setMicrosecondPosition(0);
         effects[effect].start();
     }
 
@@ -112,7 +112,6 @@ public class AudioPlayer {
 
         currentSongId = song;
         updateSongVolume();
-
         songs[currentSongId].setMicrosecondPosition(0);
         songs[currentSongId].loop(Clip.LOOP_CONTINUOUSLY);
     }

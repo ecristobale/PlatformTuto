@@ -3,36 +3,37 @@ package levels;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import gamestates.GameState;
 import main.Game;
 import utils.LoadSave;
-
 
 public class LevelHandler {
 
     private Game game;
     private BufferedImage[] levelSprite;
+    private BufferedImage[] waterSprite;
     private ArrayList<Level> levels;
     private int lvlIndex = 0;
+    private int aniTick = 0;
+    private int aniIndex = 0;
 
     public LevelHandler(Game game) {
         this.game = game;
-//        levelSprite = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
         importOutsideSprites();
+        createWater();
         levels = new ArrayList<>();
         buildAllLevels();
     }
 
-    public void loadNextLevel() {
-        lvlIndex++;
-        if (lvlIndex >= levels.size()) {
-            lvlIndex = 0;
-            System.out.println("Game completed");
-            GameState.state = GameState.MENU;
-        }
+    private void createWater() {
+        waterSprite = new BufferedImage[5];
+        BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.WATER_TOP);
+        for (int i = 0; i < 4; i++)
+            waterSprite[i] = img.getSubimage(i * 32, 0, 32, 32);
+        waterSprite[4] = LoadSave.getSpriteAtlas(LoadSave.WATER_BOTTOM);
+    }
 
+    public void loadNextLevel() {
         Level newLevel = levels.get(lvlIndex);
         game.getPlaying().getEnemyHandler().loadEnemies(newLevel);
         game.getPlaying().getPlayer().loadLevelData(newLevel.getLevelData());
@@ -42,36 +43,50 @@ public class LevelHandler {
 
     private void buildAllLevels() {
         BufferedImage[] allLevels = LoadSave.getAllLevels();
-        for(BufferedImage img : allLevels) {
+        for(BufferedImage img : allLevels)
             levels.add(new Level(img));
-        }
-
     }
 
     private void importOutsideSprites() {
         // Sprite level atlas: 48 = 4 HEIGHT * 12 WIDTH
         BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
         levelSprite = new BufferedImage[48];
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++)
             for (int i = 0; i < 12; i++) {
                 int index = j * 12 + i;
                 levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
             }
-        }
-
     }
 
     public void draw(Graphics g, int xLvlOffset) {
         for (int j = 0; j < Game.TILES_IN_HEIGHT; j++) {
             for (int i = 0; i < levels.get(lvlIndex).getLevelData()[0].length; i++) {
                 int index = levels.get(lvlIndex).getSpriteIndex(i, j);
-                g.drawImage(levelSprite[index], Game.TILES_SIZE*i - xLvlOffset, Game.TILES_SIZE*j, Game.TILES_SIZE, Game.TILES_SIZE, null);
+                int x = i * Game.TILES_SIZE - xLvlOffset;
+                int y = j * Game.TILES_SIZE;
+                if (index == 48)
+                    g.drawImage(waterSprite[aniIndex], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+                else if (index == 49)
+                    g.drawImage(waterSprite[4], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+                else
+                    g.drawImage(levelSprite[index], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
             }
         }
     }
 
     public void update() {
+        updateWaterAnimation();
+    }
 
+    private void updateWaterAnimation() {
+        aniTick++;
+        if (aniTick >= 40) {
+            aniTick = 0;
+            aniIndex++;
+
+            if (aniIndex >= 4)
+                aniIndex = 0;
+        }
     }
 
     public Level getCurrentLevel() {
@@ -84,5 +99,9 @@ public class LevelHandler {
 
     public int getLvlIndex() {
         return lvlIndex;
+    }
+
+    public void setLvlIndex(int lvlIndex) {
+        this.lvlIndex = lvlIndex;
     }
 }

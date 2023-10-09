@@ -38,10 +38,8 @@ public class MenuButton {
     private void loadImgs() {
         imgs = new BufferedImage[3];
         BufferedImage temp = LoadSave.getSpriteAtlas(LoadSave.MENU_BUTTONS);
-        for (int i = 0; i < imgs.length; i++) {
+        for (int i = 0; i < imgs.length; i++)
             imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
-        }
-
     }
 
     public void draw(Graphics g) {

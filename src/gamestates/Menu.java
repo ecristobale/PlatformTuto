@@ -11,7 +11,7 @@ import utils.LoadSave;
 
 public class Menu extends State implements StateMethods {
 
-    private MenuButton[] buttons = new MenuButton[3];
+    private MenuButton[] buttons = new MenuButton[4];
     private BufferedImage backgroundImg;
     private BufferedImage backgroundImgPink;
     private int menuX;
@@ -27,10 +27,10 @@ public class Menu extends State implements StateMethods {
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton(Game.GAME_WIDTH/2, (int) (150 * Game.SCALE), 0, GameState.PLAYING);
-        buttons[1] = new MenuButton(Game.GAME_WIDTH/2, (int) (220 * Game.SCALE), 1, GameState.OPTIONS);
-        buttons[2] = new MenuButton(Game.GAME_WIDTH/2, (int) (290 * Game.SCALE), 2, GameState.QUIT);
-//        buttons[3] = new MenuButton(Game.GAME_WIDTH/2, (int) (150 * Game.SCALE), 0, GameState.PLAYING);
+        buttons[0] = new MenuButton(Game.GAME_WIDTH/2, (int) (130 * Game.SCALE), 0, GameState.PLAYING);
+        buttons[1] = new MenuButton(Game.GAME_WIDTH/2, (int) (200 * Game.SCALE), 1, GameState.OPTIONS);
+        buttons[2] = new MenuButton(Game.GAME_WIDTH/2, (int) (270 * Game.SCALE), 3, GameState.CREDITS);
+        buttons[3] = new MenuButton(Game.GAME_WIDTH/2, (int) (340 * Game.SCALE), 2, GameState.QUIT);
     }
 
     private void loadBackground() {
@@ -38,7 +38,7 @@ public class Menu extends State implements StateMethods {
         menuWidth = (int) (backgroundImg.getWidth() * Game.SCALE);
         menuHeight = (int) (backgroundImg.getHeight() * Game.SCALE);
         menuX = Game.GAME_WIDTH/2 - menuWidth/2;
-        menuY = (int) (45 * Game.SCALE);
+        menuY = (int) (25 * Game.SCALE);
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Menu extends State implements StateMethods {
         for (MenuButton button : buttons) {
             button.update();
         }
-
     }
 
     @Override
@@ -56,12 +55,6 @@ public class Menu extends State implements StateMethods {
         for (MenuButton button : buttons) {
             button.draw(g);
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -109,17 +102,12 @@ public class Menu extends State implements StateMethods {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            GameState.state = GameState.PLAYING;
-        }
-
-    }
+    public void keyPressed(KeyEvent e) {}
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
+    public void keyReleased(KeyEvent e) {}
 
-    }
+    @Override
+    public void mouseClicked(MouseEvent e) {}
 
 }

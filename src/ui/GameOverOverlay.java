@@ -4,7 +4,6 @@ import static utils.Constants.UI.UrmButtons.URM_SIZE;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -55,17 +54,11 @@ public class GameOverOverlay {
 
         menu.draw(g);
         play.draw(g);
-//        g.setColor(Color.WHITE);
-//        g.drawString("Game Over", Game.GAME_WIDTH/2, 150);
-//        g.drawString("Press esc to enter Main Menu!", Game.GAME_WIDTH/2, 300);
     }
 
     public void update() {
         menu.update();
         play.update();
-    }
-
-    public void keyPressed(KeyEvent e) {
     }
 
     private boolean isIn(UrmButton b, MouseEvent e) {
