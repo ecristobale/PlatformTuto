@@ -1,6 +1,6 @@
 # PlatformTuto
 Followed [Kaarin Gaming tutorial](https://www.kaaringaming.com/platformer-tutorial) in order to learn how to create a game in Java and learn the basics related to gaming such as: 
-img sprites, gravity, animation, update, draw, offset for adjust sprite imgs and for moving through the level, player and enemy attack-box, hit-box, control mouse and keyboard events, different music in the game, sound effects, rain event, die in water or spikes, tiles, game scale, using booleans to control entity (player, enemies and objects) actions, using Java abstract classes and interfaces to generate clean code, up to 5 levels!
+animated img sprites, gravity acceleration and deceleration when jumping and falling, update, draw, manage FPS and UPS, offset for adjust sprite imgs and for moving through the level, player and enemy attack-box, hit-box, control mouse and keyboard events, different music in the game, sound effects, rain event, die in water or spikes, tiles, game scale, using booleans to control entity (player, enemies and objects) actions and status, enums for different states, using Java abstract classes and interfaces to generate clean code, up to 5 levels!
 
 ## Screenshots:
 
